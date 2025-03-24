@@ -6,3 +6,6 @@ We can just use the main (master branch for which core feature)
 
 We will use the new branches for each feature
 
+
+
+add package JSON
