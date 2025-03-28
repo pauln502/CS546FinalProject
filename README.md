@@ -10,3 +10,5 @@ Amrit Kaur
 David Arguello
 
 Notes:
+
+Reminder to install dependencies
