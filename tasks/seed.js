@@ -1,1 +1,1 @@
-seedddd
+//Create examples for MongoDB database, server.

@@ -1,1 +1,1 @@
-c
+//This is the helper function js file
