@@ -1,1 +1,0 @@
-//Create examples for MongoDB database, server.
