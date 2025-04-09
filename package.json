@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "CS546 Group 3 Final Project",
   "main": "app.js",
+  "type": "module",
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/pauln502/CS546FinalProject.git"
   },
-  "author": "Paul Ngyyen, Juliana McGaffic, Amrit Kaur, David Arguello",
+  "author": "Paul Nguyen, Juliana McGaffic, Amrit Kaur, David Arguello",
   "license": "ISC",
   "type": "module",
   "bugs": {
