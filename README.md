@@ -11,4 +11,9 @@ David Arguello
 
 Notes:
 
-Reminder to install dependencies
+Reminder to install dependencies:
+    "bcryptjs"
+    "express"
+    "express-handlebars"
+    "express-session"
+    "mongodb"
