@@ -14,9 +14,14 @@
   },
   "author": "Paul Nguyen, Juliana McGaffic, Amrit Kaur, David Arguello",
   "license": "ISC",
-  "type": "module",
   "bugs": {
     "url": "https://github.com/pauln502/CS546FinalProject/issues"
   },
-  "homepage": "https://github.com/pauln502/CS546FinalProject#readme"
+  "homepage": "https://github.com/pauln502/CS546FinalProject#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "express": "^5.1.0",
+    "express-handlebars": "^8.0.1",
+    "mongodb": "^6.15.0"
+  }
 }

@@ -1,11 +1,11 @@
-import bycrypt from 'btcryptjs';
+import bcrypt from 'bcryptjs';
 
 const userPasswordHash = async (plainTextPassword) => {
   
   plainTextPassword = trimStr(plainTextPassword);
 
   const saltRounds = 16;
-  const hash = await brypt.hash(plainTextPassword, saltRounds);
+  const hash = await bcrypt.hash(plainTextPassword, saltRounds);
   return hash;
 }
 
@@ -38,7 +38,7 @@ const isSpaces = (data, variale) => {
     throw `${variable} can't be spaces`
   }
 
-  if (/\s/.test(data) {
+  if (/\s/.test(data)) {
     throw `${variable} can't have spaces`
   }
 }
@@ -53,7 +53,7 @@ const nameHelper = (data, variable) => {
   isSpaces(data, variable);
   data = trimStr(data);
 
-  if (/\d/.test(data) {
+  if (/\d/.test(data)) {
     throw `${variable} can't have numbers`
   }
 
@@ -115,7 +115,7 @@ const restrictionsHelper = (data, variable) => {
       data === 'keto' ||
       data === 'diabetes' ||
       data === 'dairyfree' ||
-      data === 'lowcarb' ||
+      data === 'lowcarb'
   ) {
     return data;
   } else if (data === 'foodalergy') {
@@ -134,7 +134,7 @@ const roleHelper = (data) => {
   }
 }
 
-const validationFuncs = {
+const userFuncs = {
   userPasswordHash, 
   userPasswordCompare,
   dataExists, 
@@ -144,4 +144,4 @@ const validationFuncs = {
   roleHelper
 };
 
-export default validationfuncs;
+export default userFuncsFuncs;
