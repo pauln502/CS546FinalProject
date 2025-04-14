@@ -1,7 +1,7 @@
 //import express, express router as shown in lecture code
 import {Router} from 'express';
 const router = Router();
-import {registerUser, loginUser} from '../data/users.js';
+import userFunctions from '../data/users.js';
 import userHelpers from '../validation.js';
 
 router.route('/').get(async (req, res) => {
@@ -59,7 +59,7 @@ router
           message: e});
       }
 
-      const newUser = await registerUser(
+      const newUser = await userFunctions.createUser(
         registerdUser.firstNameInput,
         registerdUser.lastNameInput,
         registerdUser.emailAddressInput,
@@ -119,7 +119,7 @@ router
         message: e});
     }
 
-    const newUserLogin = await loginUser(
+    const newUserLogin = await userFunctions.loginUser(
       logedInUser.emailAddressInput,
       logedInUser.passwordInput
     );

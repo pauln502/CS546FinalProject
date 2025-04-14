@@ -1,5 +1,5 @@
 import {posts} from '../config/mongoCollections.js';
-import {ObjextId} from 'mongodb';
+import {ObjectId} from 'mongodb';
 
 const createPost = async() => {
 
@@ -21,7 +21,7 @@ const updatePost = async() => {
 
 };
 
-const postDataFunctions = {
+const postFunctions = {
     createPost,
     getAllPosts,
     getPostById,
@@ -29,4 +29,4 @@ const postDataFunctions = {
     updatePost
 };
 
-export default postDataFunctions;
+export default postFunctions;

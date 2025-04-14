@@ -29,7 +29,7 @@ const isDataString = (data, variable) => {
   }
 }
 
-const isSpaces = (data, variale) => {
+const isSpaces = (data, variable) => {
   if (data.length === 0) {
     throw `${variable} can't be empty`
   }
@@ -40,6 +40,18 @@ const isSpaces = (data, variale) => {
 
   if (/\s/.test(data)) {
     throw `${variable} can't have spaces`
+  }
+}
+
+const isArr = (data, variable) => {
+  if(!Array.isArray(data)) {
+      throw `${variable} must be an array`
+  }
+}
+
+const isObjId = (data, variable) => {
+  if (!ObjectId.isValid(data)) {
+    throw `${variable} is not an ObjectID`
   }
 }
 
@@ -103,7 +115,7 @@ const passwordHelper = (data, variable) => {
 }
 
 const restrictionsHelper = (data, variable) => {
-  data = trimSt(data);
+  data = trimStr(data);
   data = data.toLowerCase();
 
   if (
@@ -134,14 +146,21 @@ const roleHelper = (data) => {
   }
 }
 
-const userFuncs = {
+const userPostFuncs = {
+  dataExists,
+  isDataString,
+  isSpaces,
+  trimStr,
+  isObjId,
+  isArr,
   userPasswordHash, 
   userPasswordCompare,
   dataExists, 
   nameHelper,
   emailHelper,
   passwordHelper,
+  restrictionsHelper,
   roleHelper
 };
 
-export default userFuncsFuncs;
+export default userPostFuncs;

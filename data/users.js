@@ -1,6 +1,6 @@
 import {users} from '../config/mongoCollections.js';
 import validationFuncs from '../validation.js';
-import {ObjextId} from 'mongodb';
+import {ObjectId} from 'mongodb';
 
 export const createUser = async(
     firstName,
@@ -12,9 +12,9 @@ export const createUser = async(
 
     firstName = validationFuncs.nameHelper(firstName, 'First name');
     lastName = validationFuncs.nameHelper(lastName, 'Last name');
-    emailAddress = validationFuncs.emailHelper(emailAddres, 'Email');
+    emailAddress = validationFuncs.emailHelper(emailAddress, 'Email');
     userName = validationFuncs.nameHelper(userName, 'Username');
-    restrictions = validation.restrictionsHelper(restrictions, 'restrictions');
+    restrictions = validationFuncs.restrictionsHelper(restrictions, 'restrictions');
     password = validationFuncs.passwordHelper(password, 'Password');
     password = await validationFuncs.userPasswordHash(password);
     role = validationFuncs.roleHelper(role);
@@ -58,8 +58,8 @@ export const loginUser = async (
     password
 ) => {
     
-    emailAddress = velidationFuncs.emailHelper(emailAddress, 'Email');
-    password = validationFunds.passwordHelper(password, 'Password');
+    emailAddress = validationFuncs.emailHelper(emailAddress, 'Email');
+    password = validationFuncs.passwordHelper(password, 'Password');
 
     let userLogin = {
         emailAddress,
@@ -70,8 +70,8 @@ export const loginUser = async (
         throw 'Both email and password must be provided'
     }
 
-    const userCollection = await user();
-    const userFound = await userColledtion.findOne(
+    const userCollection = await users();
+    const userFound = await userCollection.findOne(
         {emailAddress: emailAddress}
     );
 
@@ -84,6 +84,7 @@ export const loginUser = async (
     const userChecked = {
         firstName: userFound.firstName,
         lastName: userFound.lastName,
+        userName: userFound.userName,
         emailAddress: userFound.emailAddress,
         role: userFound.role
     };
@@ -95,23 +96,80 @@ export const loginUser = async (
     }
 };
 
+
+//To be used only by admin
 const getAllUsers = async() => {
 
+    const userCollection = await users();
+    let userList = await userCollection.find({}).toArray();
+
+    if (!userList) {
+        throw 'No user in data base, or could not find user list'
+    }
+
+    userList = userList.map((users) => {
+        users._id = users._id.toString();
+        return users;
+    });
 };
 
-const getUserById = async() => {
+const getUserById = async(userId) => {
 
+    validationFuncs.dataExists(userId, 'User ID');
+    validationFuncs.isDataString(userId, 'User ID');
+    validationFuncs.isSpaces(userId, 'User ID');
+    userId = validationFuncs.trimStr(userId);
+
+    validationFuncs.isObjId(userId, 'User ID');
+
+    const userCollection = await users();
+    const user = await userCollection.fincOne(
+        {_id: new ObjectId(userId)}
+    );
+
+    if (user === null) {
+        throw `No user with ID: ${userId}`
+    }
+
+    user._id = user._id.toString();
+
+    return user;
 };
 
-const deleteUserById = async() => {
 
-};
+//Can be used for the user or admin to delete their account
+//Admin can delete any user
 
+const deleteUserById = async(userId) => {
+    validationFuncs.dataExists(userId);
+    validationFuncs.isDataString(userId);
+    validationFuncs.isSpaces(userId);
+    userId = trimStr(userId);
+
+    if (!/^[a-z0-9-]+$/.test(movieId)) {
+        throw 'ID must have only lowercase characters, and numbers'
+    }
+
+    validationFuncs.isObjId(userId);
+
+    const userCollection = await users();
+    const deletedUser = await userCollection.findOneAndDelete(
+        {_id: new ObjectId(userId)}
+    );
+
+    if (!deletedUser) {
+        throw `Could not delete user with ID: ${userId}`
+    } else {
+        throw `Account deleted, ID: ${userId}`
+    }
+};  
+
+//user to update info like first, last and user name, etc.
 const updateUser = async() => {
-
+    //TODO: implement updateUser
 };
 
-const userDataFunctions = {
+const userFunctions = {
     createUser,
     loginUser,
     getAllUsers,
@@ -120,4 +178,4 @@ const userDataFunctions = {
     updateUser
 };
 
-export default userDataFunctions;
+export default userFunctions;
