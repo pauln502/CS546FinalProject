@@ -4,11 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Allergy Safety and Accessibility Rating System</title>
-    <link rel="stylesheet" href="/public/css/main.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .section {
+            background: #f9f9f9;
+            border-left: 4px solid #3498db;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .section:hover {
+            background: #e8f4fc;
+        }
+        .messages {
+            background: #e8f8f0;
+            border-left: 4px solid #2ecc71;
+            padding: 15px 20px;
+            margin-bottom: 30px;
+        }
+        .members {
+            text-align: center;
+            font-style: italic;
+            margin-top: 40px;
+            color: #7f8c8d;
+        }
+        #dynamic-content {
+            background: #fff9e6;
+            border: 1px solid #f1c40f;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            display: none;
+        }
+        .close-btn {
+            float: right;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
+        <div id="dynamic-content">
+            <span class="close-btn" onclick="closeDynamicContent()">×</span>
+            <div id="content-display"></div>
+        </div>
+        
         <h1>Restaurant Allergy Safety and Accessibility Rating System</h1>
         
         <div class="messages">
@@ -16,32 +74,136 @@
             <p>No recalls, outbreaks, or advisories.</p>
         </div>
 
-        <div class="section">
+        <div class="section" onclick="loadContent('restaurants')">
             <h2>Restaurants Collection</h2>
             <p>Stores information about restaurants including name, location, cuisine type, ratings, incidents, and user reviews.</p>
         </div>
 
-        <div class="section">
+        <div class="section" onclick="loadContent('users')">
             <h2>Users Collection</h2>
             <p>Stores user profiles with personal information, dietary restrictions, allergies, favorite restaurants, and reviews.</p>
         </div>
 
-        <div class="section">
+        <div class="section" onclick="loadContent('reviews')">
             <h2>Reviews Collection</h2>
             <p>Contains user-generated reviews with ratings, text descriptions, and user interactions.</p>
         </div>
 
-        <div class="section">
+        <div class="section" onclick="loadContent('comments')">
             <h2>Comments Collection</h2>
             <p>Stores comments that users leave on restaurant reviews.</p>
         </div>
 
-        <div class="section">
+        <div class="section" onclick="loadContent('incidents')">
             <h2>Incident Reports Collection</h2>
             <p>Stores reports on safety violations or allergy incidents, along with date, time, and related restaurant and user information.</p>
         </div>
         
         <p class="members">Group Members: Paul Nguyen, David Arguello, Juliana McGaffic, Amrit Kaur</p>
     </div>
+
+    <script>
+        function loadContent(section) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(sec => {
+                sec.style.display = 'none';
+            });
+            
+            document.getElementById('content-display').innerHTML = "<p>Loading content...</p>";
+            document.getElementById('dynamic-content').style.display = 'block';
+            
+            setTimeout(() => {
+                let content = '';
+                switch(section) {
+                    case 'restaurants':
+                        content = `
+                            <h2>Restaurants Collection Details</h2>
+                            <p><strong>Data Structure:</strong></p>
+                            <ul>
+                                <li>Name: String</li>
+                                <li>Location: Object (address, city, state, zip)</li>
+                                <li>Cuisine Type: Array of Strings</li>
+                                <li>Allergy Safety Rating: Number (1-5)</li>
+                                <li>Accessibility Rating: Number (1-5)</li>
+                                <li>Menu Items: Array of Objects (with allergy info)</li>
+                            </ul>
+                            <p><strong>API Endpoint:</strong> /api/restaurants</p>
+                        `;
+                        break;
+                    case 'users':
+                        content = `
+                            <h2>Users Collection Details</h2>
+                            <p><strong>Data Structure:</strong></p>
+                            <ul>
+                                <li>Username: String</li>
+                                <li>Email: String</li>
+                                <li>Dietary Restrictions: Array of Strings</li>
+                                <li>Allergies: Array of Strings</li>
+                                <li>Favorite Restaurants: Array of References</li>
+                                <li>Review History: Array of References</li>
+                            </ul>
+                            <p><strong>API Endpoint:</strong> /api/users</p>
+                        `;
+                        break;
+                    case 'reviews':
+                        content = `
+                            <h2>Reviews Collection Details</h2>
+                            <p><strong>Data Structure:</strong></p>
+                            <ul>
+                                <li>Restaurant: Reference</li>
+                                <li>User: Reference</li>
+                                <li>Rating: Number (1-5)</li>
+                                <li>Allergy Safety Rating: Number (1-5)</li>
+                                <li>Accessibility Rating: Number (1-5)</li>
+                                <li>Content: String</li>
+                                <li>Date: Date</li>
+                            </ul>
+                            <p><strong>API Endpoint:</strong> /api/reviews</p>
+                        `;
+                        break;
+                    case 'comments':
+                        content = `
+                            <h2>Comments Collection Details</h2>
+                            <p><strong>Data Structure:</strong></p>
+                            <ul>
+                                <li>Review: Reference</li>
+                                <li>User: Reference</li>
+                                <li>Content: String</li>
+                                <li>Date: Date</li>
+                                <li>Likes: Number</li>
+                            </ul>
+                            <p><strong>API Endpoint:</strong> /api/comments</p>
+                        `;
+                        break;
+                    case 'incidents':
+                        content = `
+                            <h2>Incident Reports Collection Details</h2>
+                            <p><strong>Data Structure:</strong></p>
+                            <ul>
+                                <li>Restaurant: Reference</li>
+                                <li>User: Reference</li>
+                                <li>Type: String (allergy, safety, etc.)</li>
+                                <li>Description: String</li>
+                                <li>Severity: Number (1-5)</li>
+                                <li>Date: Date</li>
+                                <li>Status: String (reported, verified, resolved)</li>
+                            </ul>
+                            <p><strong>API Endpoint:</strong> /api/incidents</p>
+                        `;
+                        break;
+                }
+                
+                document.getElementById('content-display').innerHTML = content;
+            }, 500);
+        }
+        
+        function closeDynamicContent() {
+            document.getElementById('dynamic-content').style.display = 'none';
+\            const sections = document.querySelectorAll('.section');
+            sections.forEach(sec => {
+                sec.style.display = 'block';
+            });
+        }
+    </script>
 </body>
 </html>
