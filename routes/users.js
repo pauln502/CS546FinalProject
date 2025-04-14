@@ -2,6 +2,9 @@ import {Router} from 'express';
 const router = Router();
 import {} from '../data/users.js';
 
+//TODO: Implement log-in and create user routes here.
+
+wasdwasd4wa
 router.route('/user').get(async (req, res => {
     //implement GET route
 }))
