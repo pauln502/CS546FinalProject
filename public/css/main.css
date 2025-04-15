@@ -114,8 +114,8 @@ body {
 .footer-text {
     text-align: center;
     margin-top: 40px;
-    color: #7f8c8d;
-    font-size: 0.9em;
+    color: #aac0c1;
+    font-size: 1em;
 }
 
 @media (max-width: 768px) {
