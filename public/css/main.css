@@ -4,7 +4,7 @@ body {
     background-color: #f5f5f5;
     margin: 0;
     padding: 0;
-/*background*/
+    
     background-image: url('/public/images/vibepic.jpg');
     background-size: cover;
     background-position: center;
@@ -19,6 +19,7 @@ body {
     padding: 20px;
     text-align: center;
 }
+
 .header-container {
     color: white;
     padding: 20px 0;
@@ -69,7 +70,6 @@ body {
     background-color: #27ae60;
 }
 
-/*safety flash*/
 .alert-box {
     background-color: #f8d7da;
     padding: 3px;
@@ -93,10 +93,17 @@ body {
     transition: transform 0.3s ease;
     max-width: 40%;
     text-align: center;
+    display: block;
+    text-decoration: none;
 }
 
-.content-section:hover {
+.clickable-section {
+    cursor: pointer;
+}
+
+.clickable-section:hover {
     transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 .section-title {
